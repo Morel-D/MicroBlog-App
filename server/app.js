@@ -1,8 +1,9 @@
 require('dotenv').config();
 const express = require('express');
 const blogRouters = require('./Routers/blogRouters');
+const mongoose = require('mongoose');
 
-
+var db_url = process.env.DB_URL
 var port = process.env.PORT;
 
 // express setup
@@ -16,10 +17,20 @@ app.use((req, res, next) => {
 })
 
 
+// Database Connection
+mongoose.connect(db_url)
+    .then(() => {
+        app.listen(port, () => {
+            console.log("Connection established on port", port)
+        })
+    }).catch(error => {
+    console.log('Something went wrong', error.message())
+})
+
+
+
 // Router Create 
 app.use('/blogs', blogRouters);
 
 
-app.listen(port, () => {
-    console.log("Listening on port", port)
-})
+
