@@ -1,5 +1,8 @@
 require('dotenv').config();
 const express = require('express');
+const blogRouters = require('./Routers/blogRouters');
+
+
 var port = process.env.PORT;
 
 // express setup
@@ -12,6 +15,9 @@ app.use((req, res, next) => {
     next();
 })
 
+
+// Router Create 
+app.use('/blogs', blogRouters);
 
 
 app.listen(port, () => {
