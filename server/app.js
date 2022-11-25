@@ -1,6 +1,7 @@
 require('dotenv').config();
 const express = require('express');
 const blogRouters = require('./Routers/blogRouters');
+const authRouter = require('./Routers/authRouter');
 const mongoose = require('mongoose');
 
 var db_url = process.env.DB_URL
@@ -31,6 +32,7 @@ mongoose.connect(db_url)
 
 // Router Create 
 app.use('/blogs', blogRouters);
+app.use('/', authRouter);
 
 
 
