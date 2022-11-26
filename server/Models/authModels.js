@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const bycrypt = require('bcrypt');
-const { exists } = require('./blogModels');
+const validator = require('validator');
 
 
 const SchemaUsers = new Schema(
@@ -32,6 +32,23 @@ const SchemaUsers = new Schema(
 SchemaUsers.statics.signUp = async function (userName, email, password)
 {
 
+    if (!userName || !email || !password)
+    {
+        throw Error('Fill all the infromations')
+    }
+    
+    if (!validator.isEmail(email))
+    {
+        throw Error('Invalide email')
+    }
+    
+    if (!validator.isStrongPassword(password))
+    {
+        throw Error('Password is too weak')
+    }
+    
+
+
     // create a variable which coantains an existing email 
     const exist = await this.findOne({ email })
 
@@ -54,6 +71,40 @@ SchemaUsers.statics.signUp = async function (userName, email, password)
     return user;
 
     
+}
+
+
+// Create a condition for login procedures
+
+SchemaUsers.statics.login = async function (email, password)
+{
+    // Check if the fields are empty
+    if (!email || !password)
+    {
+        throw Error('Fill in all the informations')
+        
+    }
+    
+    // Search for similar email
+    const user = await this.findOne({ email })
+    
+    // Incase no similar email is found
+    if (!user)
+    {
+        throw Error('Invalide Email')
+    }
+    
+    // Search for similar password
+    const match = await bycrypt.compare(password, user.password)
+
+    // In case no similar password is found
+    if (!match)
+    {
+        throw Error('Invalide Password')
+    }
+    
+
+    return user
     }
 
 

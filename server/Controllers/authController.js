@@ -24,8 +24,22 @@ const signUpBlog = async (req, res) => {
     }
 }
 
-const loginBlog = (req, res) => {
-    res.status(200).json({ msg: "Login is succesful" });
+const loginBlog = async (req, res) => {
+   
+    const { email, password } = req.body;
+
+    try {
+        const userLog = await User.login(email, password)
+
+        // Create token 
+        const token = createToken(userLog._id);
+
+        res.status(200).json({ email, token })
+    } catch (error)
+    {
+        res.status(400).json({ error: error.message })
+    }
+
 }
 
 module.exports = {
