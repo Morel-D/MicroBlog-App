@@ -1,6 +1,17 @@
 import { Link } from "react-router-dom";
+import { useLogout } from "../Hook/useLogout";
 
 const Navbar = () => {
+
+
+  const { logout } = useLogout()
+
+  const handleLogout = () =>
+  {
+    logout();
+    }
+
+
     return ( 
         <div className="NavBar shadow-sm bg-body sticky-top">
             <nav className="navbar navbar-expand-lg bg-light">
@@ -34,7 +45,7 @@ const Navbar = () => {
           <ul className="dropdown-menu">
             <li><Link className="dropdown-item" to="">View Profile</Link></li>
             <li><Link className="dropdown-item" to="/Private">My Blogs</Link></li>
-            <li><Link className="dropdown-item" to="/Login">Logout</Link></li>
+            <li><button className="dropdown-item" onClick={handleLogout}>Logout</button></li>
           </ul>
         </li>
       </ul>
