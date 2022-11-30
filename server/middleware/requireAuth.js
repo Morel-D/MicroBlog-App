@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken');
-const Blogs = require('../Models/blogModels');
+const User = require('../Models/authModels');
 
 const requireAuth = async (req, res, next) => 
 {
@@ -7,7 +7,7 @@ const requireAuth = async (req, res, next) =>
 
     if (!authorization)
     {
-        return res.status(401).json({message : "Authorization token required"})
+        return res.status(401).json({error : "Authorization token required"})
     }
     
     const token = authorization.split(' ')[1]
@@ -16,8 +16,9 @@ const requireAuth = async (req, res, next) =>
         const { _id } = jwt.verify(token, process.env.SECRETE)
 
         // This user can be anythng
-        req.user = await Blogs.findOne({ _id }).select('_id')
+        req.user = await User.findOne({ _id }).select('_id');
         next();
+
     } catch (error)
     {
         console.log(error)

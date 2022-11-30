@@ -17,7 +17,7 @@ const Private = () => {
 
         const fetchRequest = () => 
         {
-            fetch('/blogs', {
+            fetch('/blogs/myBlogs', {
                 headers:  { 'Authorization': `Bearer ${user.token}`}
             })
                 .then((resource) => {

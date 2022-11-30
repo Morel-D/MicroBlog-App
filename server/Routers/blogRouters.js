@@ -9,6 +9,9 @@ router.use(requireAuth);
 // Get all the blogs
 router.get('/', contoller.getAllBlog);
 
+// Get only my blogs
+router.get('/myBlogs', contoller.getMyBlogs);
+
 // Add a single blog
 router.post('/', contoller.postBlog)
 
