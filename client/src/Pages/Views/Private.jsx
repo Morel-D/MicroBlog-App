@@ -2,30 +2,44 @@ import Navbar from "../../Components/Navbar";
 import Photo1 from "../../Images/Photo2.png"
 import Photo3 from "../../Images/Photo3.png"
 import Panel from "../../Components/Panel";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import MyBlogs from "../../Components/myBlogs";
 import { useEffect } from "react";
+import { useAuthContext } from "../../Hook/useAuthContext";
 
 const Private = () => {
 
 
     const [blogs, setBlog] = useState();
-
+    const { user } = useAuthContext();
 
     useEffect(() => {
 
-        fetch('/blogs')
-            .then((resource) => {
-                if (!resource.ok)
-                {
-                    throw Error('Something is wrong')
-                }
-                return resource.json()
-            }).then((data) => {
-            setBlog(data)
-            }).catch((error) => {
-            console.log(error)
-        })
+        const fetchRequest = () => 
+        {
+            fetch('/blogs', {
+                headers:  { 'Authorization': `Bearer ${user.token}`}
+            })
+                .then((resource) => {
+                    if (!resource.ok)
+                    {
+                        throw Error('Something is wrong')
+                    }
+                    return resource.json()
+                }).then((data) => {
+                setBlog(data)
+                }).catch((error) => {
+                console.log(error)
+            })
+        }
+        
+
+        if (user)
+        {
+            fetchRequest()
+        }
+        
+
 
     }, ['/blogs'])
 
@@ -46,7 +60,9 @@ const Private = () => {
                             </div>
                             <hr />
                          
-                            {blogs && blogs.map((blog) => (<MyBlogs  key={blog._id} blog={blog} />) )  }
+                            {blogs && blogs.map((blog) => (<MyBlogs key={blog._id} blog={blog} />))}
+                            
+                            {!user && <div className="text-center"><h2 id="warn">Authorization Token Needed</h2></div>  }
                             
                         </div>
                     </div>

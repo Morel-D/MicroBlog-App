@@ -4,13 +4,23 @@ import Photo3 from "../../Images/Photo3.png"
 import Panel from "../../Components/Panel";
 import { useEffect, useState } from "react";
 import Blogs from "../../Components/blogs";
+import { useAuthContext } from "../../Hook/useAuthContext";
 
 const Public = () => {
 
     const [myblogs, setBlog] = useState();
+    const  { user } = useAuthContext()
 
     useEffect(() => {
-        fetch('/blogs')
+
+    
+        const fetchRequest = () => 
+        {
+            fetch('/blogs',
+            {
+                headers: { 'Authorization': `Bearer ${user.token}` }
+            }
+        )
             .then((resource) => {
                 if (!resource)
                 {
@@ -22,8 +32,16 @@ const Public = () => {
             }).catch((error) => {
             console.log(error)
         })
+        }
+        
 
-    }, ['/blogs'])
+        if (user)
+        {
+            fetchRequest()
+            }
+
+
+    }, ['/blogs', user])
 
 
 
@@ -45,7 +63,7 @@ const Public = () => {
                              
                             {myblogs && myblogs.map((blog) => ( <Blogs key={blog._id} blog ={blog} /> ))}
 
-                           
+                           {!user && <div className="text-center"><h2 id="warn">Authorization Token Needed</h2></div>  }
 
                         </div>
                     </div>

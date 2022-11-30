@@ -1,14 +1,19 @@
 import { formatDistanceToNow } from "date-fns";
+import { useAuthContext } from "../Hook/useAuthContext";
 
 
 const MyBlogs = ({ blog }) => {
 
+    const { user } = useAuthContext();
 
     const handleDelete = () => {
 
         fetch('/blogs/'+blog._id, {
             method: 'DELETE',
-            headers: { 'Content-type': 'application/json' }
+            headers: {
+                'Content-type': 'application/json',
+                'Authorization': `Bearer ${ user.token }`
+            }
         }).then((data) => {
             data.json()
             if (data.ok)

@@ -35,7 +35,7 @@ code {
   background-color: rgb(205, 94, 24);
 }
 
-#plus
+#plus, #warn
 {
   color: rgb(205, 94, 24);
 }
@@ -51,7 +51,7 @@ code {
   cursor: pointer;
 }
 
-#bold {
+#bold, #warn {
   font-size: 15px;
   font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }

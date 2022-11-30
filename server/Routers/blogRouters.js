@@ -1,7 +1,10 @@
 const express = require('express');
 const router = express.Router();
 const contoller = require('../Controllers/blogController');
+const requireAuth = require('../middleware/requireAuth')
 
+// Require Authorzation first 
+router.use(requireAuth);
 
 // Get all the blogs
 router.get('/', contoller.getAllBlog);

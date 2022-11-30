@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { json, useNavigate } from "react-router-dom";
 import Navbar from "../../Components/Navbar";
+import { useAuthContext } from "../../Hook/useAuthContext";
 
 const Forms = () => {
 
@@ -10,6 +11,7 @@ const Forms = () => {
     const [text, setText] = useState('');
     const [error, setError] = useState(null);
     const navigate = useNavigate();
+    const { user } = useAuthContext();
 
 
 
@@ -18,9 +20,20 @@ const Forms = () => {
         e.preventDefault();
         const blogs = { bloggerName, text };
 
+        if (!user)
+        {
+            setError("You Must login")
+            return
+        }
+        
+
+
         fetch('/blogs', {
             method: "POST",
-            headers: { "Content-type": "application/json" },
+            headers: {
+                "Content-type": "application/json",
+                "Authorization": `Bearer ${user.token}`
+            },
             body: JSON.stringify(blogs)
         }).then((data) => {
             data.json()
