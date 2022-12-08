@@ -98,8 +98,7 @@ SchemaUsers.statics.login = async function (email, password)
     }
     
     // Search for similar email
-    const user = await this.findOne({email})
-    // const user2 = await this.find({ userName });
+    const user = await this.findOne({ email })
     
     // Incase no similar email is found
     if (!user)

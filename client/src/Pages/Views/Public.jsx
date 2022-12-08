@@ -61,7 +61,11 @@ const Public = () => {
                             </div>
                             <hr />
                              
-                            {myblogs && myblogs.map((blog) => ( <Blogs key={blog._id} blog ={blog} /> ))}
+                            {!myblogs && <div className="text-center" id="empty"><h2>No Blogs</h2></div>}
+
+                            {myblogs && myblogs.map((blog) => (<Blogs key={blog._id} blog={blog} />))}
+                            
+                            
 
                            {!user && <div className="text-center"><h2 id="warn">Authorization Token Needed</h2></div>  }
 

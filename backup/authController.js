@@ -30,10 +30,11 @@ const loginBlog = async (req, res) => {
 
     try {
         const userLog = await User.login(email, password)
+
         // Create token 
         const token = createToken(userLog._id);
 
-        res.status(200).json({email, token})
+        res.status(200).json(userLog)
     } catch (error)
     {
         res.status(400).json({ error: error.message })

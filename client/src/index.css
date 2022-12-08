@@ -35,9 +35,14 @@ code {
   background-color: rgb(205, 94, 24);
 }
 
-#plus, #warn
+#plus, #warn, #empty
 {
   color: rgb(205, 94, 24);
+}
+
+#Profile {
+  height: auto;
+  width: 3%;
 }
 
 #user {

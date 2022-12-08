@@ -7,7 +7,7 @@ const Forms = () => {
 
     
 
-    const [bloggerName, setBlogName] = useState('');
+    // const [bloggerName, setBlogName] = useState('');
     const [text, setText] = useState('');
     const [error, setError] = useState(null);
     const navigate = useNavigate();
@@ -17,8 +17,12 @@ const Forms = () => {
 
     const handleSubmit = (e) => {
 
+        const bloggerName = document.getElementById('dataName').value;
+        
+        const profile = document.getElementById('profile').value;
+    
         e.preventDefault();
-        const blogs = { bloggerName, text };
+        const blogs = { bloggerName, text, profile };
 
         if (!user)
         {
@@ -43,12 +47,14 @@ const Forms = () => {
                 setError(data.error)
             }
             if (data.ok) {
-                setBlogName('');
+                // setBlogName('');
                 setText('')
                 setError(null);
                 navigate('/')
             }
         })
+
+        console.log(bloggerName);
     }
 
     return ( 
@@ -62,17 +68,23 @@ const Forms = () => {
                     <hr className="mx-4" />
 
                     <form onSubmit={handleSubmit}>
-                        <div className="p-2">
-                            <label className="lead">Blogger Name</label>
+
+                        <input type="text" hidden value= {user.profile} id="profile"/>
+
+                        <div className="">
+                            {/* <label className="lead">Blogger Name</label> */}
                             <input type="text" className="form-control"
-                                value={bloggerName}
-                                onChange={(e) => { setBlogName(e.target.value) } }
+                                disabled
+                                hidden
+                                value={user.userName}
+                                // onChange={(e) => { setBlogName(e.target.value) } }
+                                id = "dataName"
                             />
                         </div>
 
                         <div className="p-2">
                             <label className="lead"></label>
-                            <textarea className="form-control" placeholder="What's up ?" cols="30" rows="7"
+                            <textarea className="form-control" placeholder="What's up ?" cols="30" rows="10"
                                 value={text}
                                 onChange={ (e) => {setText(e.target.value) } }
                             ></textarea>

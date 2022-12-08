@@ -8,7 +8,7 @@ const Blogs = ({ blog }) => {
         <div className="Header">
 
             <label className="">
-                <img src={Photo1} className="img-fluid" id="user" />
+                <img src={blog.profile} className="img-fluid rounded" id="user" />
                 <b className="mx-4" id="bold">{blog.bloggerName}</b>
             </label>                   
 

@@ -26,8 +26,8 @@ const getMyBlogs = (req, res) => {
 
 const postBlog = async (req, res) => {
     const user_id = req.user._id;
-    const {bloggerName, text} = req.body
-    const blog = new Blogs({bloggerName, text, user_id})
+    const {bloggerName, text, profile} = req.body
+    const blog = new Blogs({bloggerName, text, profile, user_id})
     blog.save();
 
     Blogs.find()
@@ -62,6 +62,8 @@ const deleteBlog = (req, res) => {
         res.status(400).json(error.message())
     })
 }
+
+
 
 const updateBlog = (req, res) => {
     const id = mongoose.Types.ObjectId(req.params.id)

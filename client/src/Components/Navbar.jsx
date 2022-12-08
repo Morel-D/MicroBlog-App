@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { useAuthContext } from "../Hook/useAuthContext";
 import { useLogout } from "../Hook/useLogout";
+import photo1 from "../Images/Photo2.png";
 
 const Navbar = () => {
 
@@ -37,13 +38,17 @@ const Navbar = () => {
                </span>
             </a>
             <ul className="dropdown-menu">
-              <li><a className="dropdown-item" href="#">Some Notifcations</a></li>
-            </ul>
+                    <li><a className="dropdown-item" href="#">Some Notifcations</a></li>
+                  </ul>
+                  
+        {/* <li className="nav-item dropdown mx-1 mt-1"> <img src={photo1}  id = "Profile" className="dropdown-item "/></li>         */}
          </li>                   
-       {user &&  (<li className="nav-item dropdown">
-          <a className="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            { user.email }
-          </a>
+        {user && (<li className="nav-item dropdown text-end ">           
+                  <a className="nav-link" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    {user.userName}
+                    {/* <img src={user.profile}  id = "Profile" className="mx-1 rounded img-fluid"/> */}
+                  </a>
+
           <ul className="dropdown-menu">
             <li><Link className="dropdown-item" to="">View Profile</Link></li>
             <li><Link className="dropdown-item" to="/Private">My Blogs</Link></li>
