@@ -40,6 +40,12 @@ code {
   color: rgb(205, 94, 24);
 }
 
+#panel {
+  position: fixed;
+  width: 400px;
+  margin-left: 120vh;
+}
+
 #Profile {
   height: auto;
   width: 3%;
@@ -50,7 +56,13 @@ code {
   width: 7%;
 }
 
-#user2, #user {
+#user2 {
+  height: auto;
+  width: 12%;
+  cursor: pointer;
+}
+
+ #user {
   height: auto;
   width: 7%;
   cursor: pointer;

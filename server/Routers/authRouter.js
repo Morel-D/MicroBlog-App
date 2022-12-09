@@ -10,5 +10,7 @@ router.post('/Signup', contoller.signUpBlog);
 // Login
 router.post('/Login', contoller.loginBlog);
 
+router.get('/Users', contoller.getUsers);
+
 
 module.exports = router;

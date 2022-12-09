@@ -73,7 +73,7 @@ const Public = () => {
                     </div>
 
                     {/* users  */}
-                    <div className="col">
+                    <div className="col" id="panel">
                         <Panel />
                     </div>
                 </div>

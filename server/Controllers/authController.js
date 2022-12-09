@@ -1,5 +1,6 @@
 const User = require('../Models/authModels');
 const jwt = require('jsonwebtoken');
+const { json } = require('express');
 
 
 const createToken = (_id) =>
@@ -45,7 +46,20 @@ const loginBlog = async (req, res) => {
 
 }
 
+
+const getUsers = (req, res) => {
+
+    User.find().sort({})
+        .then((results) => {
+        res.status(200).json(results)
+        }).catch((error) => {
+        res.status(400).json({ Error: error.message })
+    })
+
+}
+
 module.exports = {
     signUpBlog,
-    loginBlog
+    loginBlog,
+    getUsers
 }
